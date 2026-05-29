@@ -69,7 +69,7 @@ const Contact = () => {
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
       const bodyContent = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-      const fallbackUrl = `mailto:jishnuvardhankancharla2005@gmail.com?subject=Contact from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(bodyContent)}`;
+      const fallbackUrl = `mailto:jishnuvardhan558@gmail.com?subject=Contact from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(bodyContent)}`;
 
       if (!serviceId || !templateId || !publicKey) {
         console.warn('EmailJS environment variables are not defined. Falling back to default mail client.');
