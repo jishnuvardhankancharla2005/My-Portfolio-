@@ -84,9 +84,9 @@ npm install
 ### 2. Configure Environment Variables
 To enable the Contact Form to send emails directly to your Gmail inbox, create a `.env` file in the root directory and paste your EmailJS API keys:
 ```env
-VITE_EMAILJS_SERVICE_ID=service_1af589t
-VITE_EMAILJS_TEMPLATE_ID=template_g8jrn0s
-VITE_EMAILJS_PUBLIC_KEY=JfIPUX5ylfCJzV7ux
+VITE_EMAILJS_SERVICE_ID="Your service ID"
+VITE_EMAILJS_TEMPLATE_ID="Your Template ID"
+VITE_EMAILJS_PUBLIC_KEY="Your public ID"
 ```
 *If these variables are omitted, the form automatically falls back to an integrated, prefilled `mailto:` client dispatch model.*
 
