@@ -68,5 +68,15 @@
     "category": "AI/ML",
     "github": "https://github.com/jishnuvardhankancharla2005/brain-stroke-prediction",
     "image": "/images/brain_stroke_prediction.png"
+  },
+  {
+    "id": "hybrid-cloud-llm-gateway",
+    "title": "Hybrid Cloud LLM Gateway",
+    "tagline": "Cloud-Agnostic LLM Routing",
+    "description": "A sophisticated gateway for intelligently routing requests across multiple LLM providers. Optimizes performance and cost while maintaining high availability across cloud environments.",
+    "tech": ["Python", "FastAPI", "Cloud", "LLM", "Docker"],
+    "category": "AI/ML",
+    "github": "https://github.com/jishnuvardhankancharla2005/Hybrid-Cloud-LLM-Gateway.git",
+    "image": "/images/hybrid_cloud_llm_gateway.png"
   }
 ]

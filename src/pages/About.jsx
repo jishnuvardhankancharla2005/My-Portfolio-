@@ -409,6 +409,7 @@ const About = () => {
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
+
       `}</style>
     </div>
   );

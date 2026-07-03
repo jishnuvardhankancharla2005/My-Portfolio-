@@ -54,6 +54,11 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/certifications" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+              Certifications
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
               Contact
             </NavLink>
