@@ -4,7 +4,15 @@
     "title": "AI RAG Assistant",
     "tagline": "Enterprise Document QA System",
     "description": "An enterprise-grade retrieval-augmented generation system designed to index complex documents and provide accurate answers with context citations. Features semantic embedding search, chunk overlap configurations, and vector search.",
-    "tech": ["LangChain", "Gemini", "Ollama", "FAISS", "MongoDB", "Python", "FastAPI"],
+    "tech": [
+      "LangChain",
+      "Gemini",
+      "Ollama",
+      "FAISS",
+      "MongoDB",
+      "Python",
+      "FastAPI"
+    ],
     "category": "AI/ML",
     "github": "https://github.com/jishnuvardhankancharla2005/AI-RAG-Assistant",
     "image": "/images/ai_rag_assistant.png"
@@ -14,7 +22,13 @@
     "title": "Stock Market Prediction",
     "tagline": "ML Profit/Loss Analysis Engine",
     "description": "A machine learning project designed to analyze and predict profit and loss trends using the historical POWERGRID stock market dataset. Implements regression models and data preprocessing techniques.",
-    "tech": ["Python", "Scikit-Learn", "Pandas", "NumPy", "Matplotlib"],
+    "tech": [
+      "Python",
+      "Scikit-Learn",
+      "Pandas",
+      "NumPy",
+      "Matplotlib"
+    ],
     "category": "AI/ML",
     "github": "https://github.com/jishnuvardhankancharla2005/Stock-Market-prediction-",
     "image": "/images/stock_prediction.png"
@@ -24,7 +38,13 @@
     "title": "Movie Recommendation System",
     "tagline": "Collaborative Recommendation Engine",
     "description": "A machine learning-based recommendation system that analyzes user preferences to suggest movies. Employs content-based filtering, cosine similarity, and a user-friendly Streamlit dashboard.",
-    "tech": ["Python", "Scikit-Learn", "Streamlit", "Pandas", "NumPy"],
+    "tech": [
+      "Python",
+      "Scikit-Learn",
+      "Streamlit",
+      "Pandas",
+      "NumPy"
+    ],
     "category": "AI/ML",
     "github": "https://github.com/jishnuvardhankancharla2005/movie-recommendation-sytem",
     "image": "/images/movie_recommendation.png"
@@ -34,7 +54,15 @@
     "title": "TrueShope",
     "tagline": "Modern E-Commerce Portal",
     "description": "A full-featured responsive e-commerce web application. Focuses on containerized deployments, modern product catalogs, cart workflows, and microservice-ready backend APIs.",
-    "tech": ["React", "Vite", "TailwindCSS", "Node.js", "Express", "MongoDB", "Docker"],
+    "tech": [
+      "React",
+      "Vite",
+      "TailwindCSS",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Docker"
+    ],
     "category": "DevOps",
     "github": "https://github.com/jishnuvardhankancharla2005/TrueShope",
     "image": "/images/trueshope.png"
@@ -44,7 +72,15 @@
     "title": "AI CyberSuit",
     "tagline": "AI-Powered Cybersecurity Platform",
     "description": "An AI-driven cybersecurity platform designed to detect, analyze, and monitor cyber threats. Integrates 8 tools (Phishing Scanner, Malware Analysis, Network IDS, Behavioral Analytics, Email Security, Fraud Detection, Deepfake Scanner, and 0-Day Code Scanner) built with a React UI and Flask/FastAPI backend using Scikit-Learn models.",
-    "tech": ["React", "Python", "Flask", "Scikit-Learn", "Pandas", "IDS", "Machine Learning"],
+    "tech": [
+      "React",
+      "Python",
+      "Flask",
+      "Scikit-Learn",
+      "Pandas",
+      "IDS",
+      "Machine Learning"
+    ],
     "category": "Cybersecurity",
     "github": "https://github.com/jishnuvardhankancharla2005/AI-CyberSuit",
     "image": "/images/ai_cybersuit.png"
@@ -54,7 +90,16 @@
     "title": "AI Resume Builder",
     "tagline": "LLM-Powered ATS Optimization System",
     "description": "An intelligent resume builder and ATS compatibility analyzer using Ollama and Mistral LLM for content recommendations, ATS score analysis, and resume strength check. Real-time feedback and secure resume data storage in MongoDB.",
-    "tech": ["HTML", "CSS", "JavaScript", "Python", "Flask", "Ollama", "Mistral LLM", "MongoDB"],
+    "tech": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Python",
+      "Flask",
+      "Ollama",
+      "Mistral LLM",
+      "MongoDB"
+    ],
     "category": "AI/ML",
     "github": "https://github.com/jishnuvardhankancharla2005/AI-Resume-Builder",
     "image": "/images/ai_resume_builder.png"
@@ -64,7 +109,14 @@
     "title": "Brain Stroke Prediction",
     "tagline": "ML Diagnostics & Classifier Web App",
     "description": "A health-tech Machine Learning web application that predicts brain stroke likelihood using demographic and clinical datasets. Supports single-patient and batch predictions via CSV processing, utilizing trained Random Forest or XGBoost classifiers.",
-    "tech": ["Python", "Flask", "Scikit-Learn", "Pandas", "Joblib", "NumPy"],
+    "tech": [
+      "Python",
+      "Flask",
+      "Scikit-Learn",
+      "Pandas",
+      "Joblib",
+      "NumPy"
+    ],
     "category": "AI/ML",
     "github": "https://github.com/jishnuvardhankancharla2005/brain-stroke-prediction",
     "image": "/images/brain_stroke_prediction.png"
@@ -74,8 +126,14 @@
     "title": "Hybrid Cloud LLM Gateway",
     "tagline": "Cloud-Agnostic LLM Routing",
     "description": "A sophisticated gateway for intelligently routing requests across multiple LLM providers. Optimizes performance and cost while maintaining high availability across cloud environments.",
-    "tech": ["Python", "FastAPI", "Cloud", "LLM", "Docker"],
-    "category": "AI/ML",
+    "tech": [
+      "Python",
+      "FastAPI",
+      "Cloud",
+      "LLM",
+      "Docker"
+    ],
+    "category": "DevOps",
     "github": "https://github.com/jishnuvardhankancharla2005/Hybrid-Cloud-LLM-Gateway.git",
     "image": "/images/hybrid_cloud_llm_gateway.png"
   }
