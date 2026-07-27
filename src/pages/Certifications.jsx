@@ -135,38 +135,28 @@ const Certifications = () => {
                 }
               }}
             >
-              {cert.isProfessional ? (
-                <div className={`cert-banner-preview ${cert.issuer.includes('Microsoft') ? 'banner-genai' : 'banner-devops'}`}>
-                  <div className="banner-glow-overlay" />
-                  <div className="banner-top-bar">
-                    <span className="brand-chip brand-primary-chip">
-                      {cert.issuer.includes('Microsoft') ? 'Microsoft' : 'PagerDuty'}
+              {cert.image.endsWith('.pdf') ? (
+                <div className="pdf-live-preview-container">
+                  <iframe 
+                    src={`${cert.image}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`} 
+                    title={cert.title}
+                    className="pdf-preview-iframe"
+                    scrolling="no"
+                  />
+                  <div className="pdf-preview-overlay">
+                    {cert.isProfessional ? (
+                      <div className="pdf-overlay-badge">
+                        <span>{cert.subCertificates.length} Course Series</span>
+                      </div>
+                    ) : (
+                      <div className="pdf-overlay-badge pdf-single-badge">
+                        <span>Verified PDF</span>
+                      </div>
+                    )}
+                    <span className="pdf-overlay-hint">
+                      {cert.isProfessional ? 'Explore Series →' : 'View Certificate →'}
                     </span>
-                    <span className="brand-plus-symbol">+</span>
-                    <span className="brand-chip brand-li-chip">LinkedIn</span>
                   </div>
-
-                  <div className="banner-center-body">
-                    <div className="banner-icon-ring">
-                      {cert.issuer.includes('Microsoft') ? (
-                        <FileText size={26} className="banner-icon text-purple" />
-                      ) : (
-                        <Layers size={26} className="banner-icon text-cyan" />
-                      )}
-                    </div>
-                    <h4 className="banner-card-title">{cert.title}</h4>
-                  </div>
-
-                  <div className="banner-bottom-bar">
-                    <span className="banner-series-pill">{cert.subCertificates.length} Course Series</span>
-                    <span className="banner-action-hint">Preview Series →</span>
-                  </div>
-                </div>
-              ) : cert.image.endsWith('.pdf') ? (
-                <div className="cert-pdf-card-preview">
-                  <Award size={38} className="pdf-preview-icon" />
-                  <span className="pdf-preview-badge">Verified PDF Certificate</span>
-                  <span className="pdf-preview-hint">Click to View Credentials</span>
                 </div>
               ) : (
                 <img src={cert.image} alt={cert.title} className="cert-image" onError={(e) => { e.target.src = 'https://via.placeholder.com/300x200/1e1e2e/8b5cf6?text=Certificate'; }} />
@@ -348,180 +338,95 @@ const Certifications = () => {
           z-index: 10;
         }
 
-        .cert-banner-preview {
+        .cert-image-wrapper {
+          height: 200px;
+          background: #090714;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          position: relative;
+        }
+
+        .pdf-live-preview-container {
           width: 100%;
           height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          padding: 16px 20px;
           position: relative;
           overflow: hidden;
-          transition: all 0.35s ease;
+          background: #0f0c24;
         }
 
-        .banner-genai {
-          background: linear-gradient(135deg, #0d0826 0%, #1e1346 50%, #2e1065 100%);
+        .pdf-preview-iframe {
+          width: 100%;
+          height: 320px;
+          border: none;
+          pointer-events: none;
+          transform: scale(1.05);
+          transform-origin: top center;
+          filter: contrast(1.05) brightness(0.95);
+          transition: transform 0.4s ease, filter 0.4s ease;
         }
 
-        .banner-devops {
-          background: linear-gradient(135deg, #031c18 0%, #064e3b 50%, #0c2a38 100%);
+        .cert-card:hover .pdf-preview-iframe {
+          transform: scale(1.09);
+          filter: contrast(1.1) brightness(1.05);
         }
 
-        .banner-glow-overlay {
+        .pdf-preview-overlay {
           position: absolute;
           inset: 0;
-          background: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.12), transparent 60%);
-          pointer-events: none;
-        }
-
-        .banner-top-bar {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          z-index: 2;
-        }
-
-        .brand-chip {
-          font-size: 0.68rem;
-          font-weight: 800;
-          padding: 3px 9px;
-          border-radius: 999px;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        .banner-genai .brand-primary-chip {
-          background: rgba(0, 164, 239, 0.2);
-          border: 1px solid rgba(0, 164, 239, 0.5);
-          color: #38bdf8;
-        }
-
-        .banner-devops .brand-primary-chip {
-          background: rgba(16, 185, 129, 0.2);
-          border: 1px solid rgba(16, 185, 129, 0.5);
-          color: #34d399;
-        }
-
-        .brand-li-chip {
-          background: rgba(10, 102, 194, 0.25);
-          border: 1px solid rgba(10, 102, 194, 0.5);
-          color: #60a5fa;
-        }
-
-        .brand-plus-symbol {
-          font-size: 0.75rem;
-          font-weight: 700;
-          color: rgba(255, 255, 255, 0.5);
-        }
-
-        .banner-center-body {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          z-index: 2;
-          margin: 6px 0;
-        }
-
-        .banner-icon-ring {
-          width: 44px;
-          height: 44px;
-          border-radius: 12px;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .banner-genai .banner-icon {
-          color: #c084fc;
-          filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.6));
-        }
-
-        .banner-devops .banner-icon {
-          color: #22d3ee;
-          filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.6));
-        }
-
-        .banner-card-title {
-          font-size: 0.92rem;
-          font-weight: 800;
-          color: #ffffff;
-          line-height: 1.3;
-          text-align: left;
-        }
-
-        .banner-bottom-bar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          z-index: 2;
-        }
-
-        .banner-series-pill {
-          font-size: 0.7rem;
-          font-weight: 700;
-          color: rgba(255, 255, 255, 0.8);
-          background: rgba(255, 255, 255, 0.08);
-          padding: 3px 10px;
-          border-radius: 6px;
-        }
-
-        .banner-action-hint {
-          font-size: 0.72rem;
-          font-weight: 700;
-          color: var(--accent-cyan);
-          transition: transform 0.25s ease;
-        }
-
-        .cert-card:hover .banner-action-hint {
-          transform: translateX(4px);
-        }
-
-        .cert-pdf-card-preview {
-          width: 100%;
-          height: 100%;
+          z-index: 10;
+          cursor: pointer;
+          background: linear-gradient(180deg, rgba(10, 8, 22, 0.15) 0%, rgba(10, 8, 22, 0.75) 100%);
           display: flex;
           flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15));
-          padding: 16px;
-          gap: 8px;
-          text-align: center;
+          justify-content: space-between;
+          padding: 14px;
           transition: background 0.3s ease;
         }
 
-        .cert-pdf-card-preview.pro-preview {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(217, 70, 239, 0.2));
+        .cert-card:hover .pdf-preview-overlay {
+          background: linear-gradient(180deg, rgba(10, 8, 22, 0.05) 0%, rgba(10, 8, 22, 0.5) 100%);
         }
 
-        .cert-image-wrapper.clickable:hover .cert-pdf-card-preview {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.35), rgba(6, 182, 212, 0.35));
-        }
-
-        .pdf-preview-icon {
-          color: var(--accent-purple);
-          filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6));
-        }
-
-        .pdf-preview-badge {
-          font-size: 0.78rem;
+        .pdf-overlay-badge {
+          align-self: flex-start;
+          font-size: 0.7rem;
           font-weight: 700;
-          color: #ffffff;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
+          color: white;
+          background: rgba(139, 92, 246, 0.85);
+          backdrop-filter: blur(8px);
+          padding: 4px 10px;
+          border-radius: 6px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
-        .pdf-preview-hint {
-          font-size: 0.72rem;
-          color: var(--accent-cyan);
-          font-weight: 600;
+        .pdf-single-badge {
+          background: rgba(6, 182, 212, 0.85);
         }
-        
+
+        .pdf-overlay-hint {
+          align-self: flex-end;
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--accent-cyan);
+          background: rgba(6, 182, 212, 0.15);
+          border: 1px solid rgba(6, 182, 212, 0.35);
+          backdrop-filter: blur(8px);
+          padding: 4px 12px;
+          border-radius: 999px;
+          transition: all 0.25s ease;
+        }
+
+        .cert-card:hover .pdf-overlay-hint {
+          background: var(--accent-cyan);
+          color: #000000;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+        }
+
         .cert-image-wrapper.clickable {
           cursor: pointer;
         }
