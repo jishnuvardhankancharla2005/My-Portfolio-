@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X, Terminal } from 'lucide-react';
+import { Menu, X, Terminal, FileText } from 'lucide-react';
 
-const Navbar = () => {
+const Navbar = ({ onOpenResume }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -62,6 +62,19 @@ const Navbar = () => {
             <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
               Contact
             </NavLink>
+          </li>
+          <li className="nav-resume-li">
+            <a 
+              href="/Jishnu_Vardhan_Kancharla_Resume_1.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn btn-resume btn-nav-resume"
+              onClick={closeMenu}
+              aria-label="View Resume in New Tab"
+            >
+              <FileText size={15} />
+              <span>Get Resume</span>
+            </a>
           </li>
         </ul>
 

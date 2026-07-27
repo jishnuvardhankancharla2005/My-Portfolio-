@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AnimatedBg from './components/AnimatedBg';
+import ResumeModal from './components/ResumeModal';
 import Home from './pages/Home';
 import About from './pages/About';
 import Skills from './pages/Skills';
@@ -22,27 +23,35 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+
+  const openResume = () => setIsResumeOpen(true);
+  const closeResume = () => setIsResumeOpen(false);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
       <AnimatedBg />
       
-      <Navbar />
+      <Navbar onOpenResume={openResume} />
       
       <main className="main-content">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<Home onOpenResume={openResume} />} />
+          <Route path="/about" element={<About onOpenResume={openResume} />} />
           <Route path="/skills" element={<Skills />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/certifications" element={<Certifications />} />
           <Route path="/contact" element={<Contact />} />
           {/* Catch-all redirect to Home */}
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<Home onOpenResume={openResume} />} />
         </Routes>
       </main>
       
-      <Footer />
+      <Footer onOpenResume={openResume} />
+
+      {/* Interactive Resume Modal Viewer & Downloader */}
+      <ResumeModal isOpen={isResumeOpen} onClose={closeResume} />
     </BrowserRouter>
   );
 };

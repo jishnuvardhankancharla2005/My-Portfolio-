@@ -374,19 +374,25 @@ const About = () => {
         }
 
         .profile-image-wrapper {
-          width: 180px;
-          height: 240px;
-          border-radius: 12px;
+          width: 100%;
+          max-width: 220px;
+          height: 280px;
+          border-radius: 16px;
           overflow: hidden;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 
+            0 12px 30px rgba(0, 0, 0, 0.4),
+            0 0 20px rgba(139, 92, 246, 0.18);
           margin-bottom: 16px;
-          transition: transform 0.3s ease, border-color 0.3s ease;
+          transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
         }
 
         .profile-image-wrapper:hover {
-          transform: scale(1.02);
-          border-color: var(--accent-purple);
+          transform: translateY(-6px) scale(1.02);
+          border-color: var(--accent-cyan);
+          box-shadow: 
+            0 20px 45px rgba(0, 0, 0, 0.5),
+            0 0 35px rgba(6, 182, 212, 0.3);
         }
 
         .profile-image-wrapper img {
@@ -394,6 +400,11 @@ const About = () => {
           height: 100%;
           object-fit: cover;
           object-position: center top;
+          transition: transform 0.5s ease;
+        }
+
+        .profile-image-wrapper:hover img {
+          transform: scale(1.04);
         }
 
         .profile-name {

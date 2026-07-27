@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Brain, ShieldAlert, Cpu, GitBranch } from 'lucide-react';
+import { ArrowRight, Brain, ShieldAlert, FileText, GitBranch } from 'lucide-react';
 
-const Home = () => {
+const Home = ({ onOpenResume }) => {
   return (
     <div className="home-container animate-fade-in">
       {/* Hero Section */}
@@ -30,6 +30,16 @@ const Home = () => {
               <span>Explore My Work</span>
               <ArrowRight size={18} />
             </Link>
+            <a 
+              href="/Jishnu_Vardhan_Kancharla_Resume_1.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-resume"
+              aria-label="View Resume in New Tab"
+            >
+              <FileText size={18} />
+              <span>Get Resume</span>
+            </a>
             <Link to="/contact" className="btn btn-secondary">
               <span>Get in Touch</span>
             </Link>
@@ -37,8 +47,8 @@ const Home = () => {
         </div>
 
         <div className="hero-image-side animate-delay-1">
-          <div className="passport-photo-frame">
-            <img src="/images/jishnu_profile.jpg" alt="Jishnu Vardhan Kancharla" className="passport-photo" />
+          <div className="hero-portrait-frame">
+            <img src="/images/jishnu_profile.jpg" alt="Jishnu Vardhan Kancharla" className="hero-portrait-image" />
           </div>
         </div>
       </section>
@@ -113,9 +123,9 @@ const Home = () => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          max-width: 1000px;
+          max-width: 1100px;
           margin: 0 auto;
-          gap: 40px;
+          gap: 50px;
           text-align: left;
         }
 
@@ -127,40 +137,43 @@ const Home = () => {
         }
 
         .hero-image-side {
-          flex: 0.8;
+          flex: 0.9;
           display: flex;
           justify-content: center;
           align-items: center;
         }
 
-        .passport-photo-frame {
-          width: 220px;
-          height: 280px; /* Standard 3.5:4.5 passport aspect ratio */
-          border-radius: 8px; /* Slightly rounded corners for passport photo style */
+        .hero-portrait-frame {
+          width: clamp(250px, 24vw, 320px);
+          height: clamp(320px, 31vw, 410px);
+          border-radius: 20px;
           overflow: hidden;
-          border: 4px solid rgba(255, 255, 255, 0.05);
+          border: 3px solid rgba(255, 255, 255, 0.12);
           box-shadow: 
-            0 0 0 1px rgba(255, 255, 255, 0.1),
-            0 15px 30px rgba(0, 0, 0, 0.4),
-            0 0 20px rgba(139, 92, 246, 0.1);
+            0 15px 40px rgba(0, 0, 0, 0.5),
+            0 0 25px rgba(139, 92, 246, 0.2);
           position: relative;
-          transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+          transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .passport-photo-frame:hover {
-          transform: translateY(-5px);
-          border-color: var(--accent-purple);
+        .hero-portrait-frame:hover {
+          transform: translateY(-8px) scale(1.02);
+          border-color: var(--accent-cyan);
           box-shadow: 
-            0 0 0 1px var(--accent-purple),
-            0 20px 40px rgba(0, 0, 0, 0.5),
-            0 0 30px rgba(139, 92, 246, 0.2);
+            0 25px 60px rgba(0, 0, 0, 0.6),
+            0 0 45px rgba(6, 182, 212, 0.4);
         }
 
-        .passport-photo {
+        .hero-portrait-image {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: center top;
+          transition: transform 0.5s ease;
+        }
+
+        .hero-portrait-frame:hover .hero-portrait-image {
+          transform: scale(1.04);
         }
 
         @media (max-width: 768px) {

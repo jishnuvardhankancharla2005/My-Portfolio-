@@ -1,8 +1,8 @@
 import React from 'react';
-import { Mail, Heart } from 'lucide-react';
+import { Mail, Heart, FileText } from 'lucide-react';
 import { Github, Linkedin, Instagram } from './SocialIcons';
 
-const Footer = () => {
+const Footer = ({ onOpenResume }) => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -42,6 +42,17 @@ const Footer = () => {
             aria-label="Send Email"
           >
             <Mail size={20} />
+          </a>
+          <a
+            href="/Jishnu_Vardhan_Kancharla_Resume_1.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-social-link"
+            aria-label="View Resume in New Tab"
+            title="View & Download Resume in New Tab"
+            style={{ background: 'rgba(139, 92, 246, 0.15)', borderColor: 'rgba(139, 92, 246, 0.4)', color: 'var(--accent-purple)', cursor: 'pointer' }}
+          >
+            <FileText size={20} />
           </a>
         </div>
 
