@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollProgressBar from './components/ScrollProgressBar';
+import BackToTop from './components/BackToTop';
 import AnimatedBg from './components/AnimatedBg';
 import ResumeModal from './components/ResumeModal';
+import SplashScreen from './components/SplashScreen';
+import CustomCursor from './components/CustomCursor';
+import PageTransition from './components/PageTransition';
 import Home from './pages/Home';
-import About from './pages/About';
-import Skills from './pages/Skills';
-import Projects from './pages/Projects';
 import Certifications from './pages/Certifications';
-import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 
-// Scroll to top of window automatically whenever route pathway changes
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -22,36 +23,62 @@ const ScrollToTop = () => {
   return null;
 };
 
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <PageTransition key={location.pathname}>
+      <Routes location={location}>
+        <Route path="/" element={<Home />} />
+        <Route path="/certifications" element={<Certifications />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </PageTransition>
+  );
+};
+
 const App = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+  const [appReady, setAppReady] = useState(false);
 
   const openResume = () => setIsResumeOpen(true);
   const closeResume = () => setIsResumeOpen(false);
 
+  const handleSplashComplete = useCallback(() => {
+    setShowSplash(false);
+    setTimeout(() => setAppReady(true), 100);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = showSplash ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [showSplash]);
+
+  useEffect(() => {
+    if (appReady) window.scrollTo(0, 0);
+  }, [appReady]);
+
   return (
     <BrowserRouter>
-      <ScrollToTop />
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+      <CustomCursor />
       <AnimatedBg />
-      
-      <Navbar onOpenResume={openResume} />
-      
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home onOpenResume={openResume} />} />
-          <Route path="/about" element={<About onOpenResume={openResume} />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/certifications" element={<Certifications />} />
-          <Route path="/contact" element={<Contact />} />
-          {/* Catch-all redirect to Home */}
-          <Route path="*" element={<Home onOpenResume={openResume} />} />
-        </Routes>
-      </main>
-      
-      <Footer onOpenResume={openResume} />
 
-      {/* Interactive Resume Modal Viewer & Downloader */}
-      <ResumeModal isOpen={isResumeOpen} onClose={closeResume} />
+      <ScrollProgressBar />
+      <Navbar />
+
+      <div className={`app-content ${appReady ? 'app-ready' : ''}`}>
+        <ScrollToTop />
+
+        <main className="main-content">
+          <AnimatedRoutes />
+        </main>
+
+        <Footer />
+        <ResumeModal isOpen={isResumeOpen} onClose={closeResume} />
+        <BackToTop />
+      </div>
     </BrowserRouter>
   );
 };

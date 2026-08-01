@@ -1,101 +1,127 @@
 import React, { useState, useEffect } from 'react';
 import ProjectCard from '../components/ProjectCard';
 import projectData from '../data/projects.json';
-import { Search, SlidersHorizontal } from 'lucide-react';
+import { Search, SlidersHorizontal, FolderGit2 } from 'lucide-react';
+import ScrollSection from '../components/ScrollSection';
+import ScrollNavDots from '../components/ScrollNavDots';
+import PageHeader from '../components/PageHeader';
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [filterCategory, setFilterCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Load database items
   useEffect(() => {
     setProjects(projectData);
   }, []);
 
-  // Compute filtered projects based on category and search query
   const filteredProjects = projects.filter((project) => {
     const matchesCategory = filterCategory === 'All' || project.category === filterCategory;
-    const matchesSearch = 
+    const matchesSearch =
       project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.tech.some(t => t.toLowerCase().includes(searchTerm.toLowerCase()));
-    
+
     return matchesCategory && matchesSearch;
   });
 
   return (
-    <div className="projects-container animate-fade-in">
-      <header className="projects-header">
-        <h1 className="text-gradient">Project Portfolio</h1>
-        <p className="subtitle">Explore my active developments in Artificial Intelligence, machine learning models, and secure DevOps build workflows.</p>
-      </header>
+    <div className="projects-container">
+      <ScrollNavDots />
 
-      {/* Search and Filters Bar */}
-      <section className="search-filter-section" aria-label="Search and Filter Projects">
-        <div className="glass-panel search-box-wrapper">
-          <Search size={18} className="search-icon" />
-          <input 
-            type="text" 
-            placeholder="Search projects by title, description or tech..." 
-            className="search-input"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            aria-label="Search Projects Input"
+      <ScrollSection id="hero" index={0} className="projects-scroll-hero">
+        <section className="projects-inner-section">
+          <PageHeader
+            icon={FolderGit2}
+            title="Projects"
+            subtitle="Explore my active developments in Artificial Intelligence, machine learning models, and secure DevOps build workflows."
           />
-        </div>
-
-        <div className="filter-tabs-wrapper">
-          <SlidersHorizontal size={16} className="filter-label-icon" />
-          <div className="filter-buttons">
-            {['All', 'AI/ML', 'DevOps', 'Cybersecurity'].map((category) => (
-              <button
-                key={category}
-                className={`filter-btn ${filterCategory === category ? 'active' : ''}`}
-                onClick={() => setFilterCategory(category)}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Grid Display */}
-      {filteredProjects.length > 0 ? (
-        <section className="projects-grid" aria-label="Projects Showcase List">
-          {filteredProjects.map((project) => (
-            <div key={project.id} className="grid-item">
-              <ProjectCard project={project} />
-            </div>
-          ))}
         </section>
-      ) : (
-        <div className="glass-panel no-results-card">
-          <p>No projects match your current search criteria.</p>
-          <button 
-            className="btn btn-secondary" 
-            onClick={() => { setSearchTerm(''); setFilterCategory('All'); }}
-            style={{ marginTop: '16px' }}
-          >
-            Clear Filters
-          </button>
-        </div>
-      )}
+      </ScrollSection>
+
+      <ScrollSection id="focus" index={1} className="projects-scroll-filters">
+        <section className="projects-inner-section">
+          <section className="search-filter-section" aria-label="Search and Filter Projects">
+            <div className="glass-panel search-box-wrapper tilt-card">
+              <Search size={18} className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search projects by title, description or tech..."
+                className="search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                aria-label="Search Projects Input"
+              />
+            </div>
+
+            <div className="filter-tabs-wrapper">
+              <SlidersHorizontal size={16} className="filter-label-icon" />
+              <div className="filter-buttons">
+                {['All', 'AI/ML', 'DevOps', 'Cybersecurity'].map((category) => (
+                  <button
+                    key={category}
+                    className={`filter-btn magnetic-btn-3d ${filterCategory === category ? 'active' : ''}`}
+                    onClick={() => setFilterCategory(category)}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+        </section>
+      </ScrollSection>
+
+      <ScrollSection id="stats" index={2} className="projects-scroll-grid">
+        <section className="projects-inner-section">
+          {filteredProjects.length > 0 ? (
+            <section className="projects-grid stagger-3d" aria-label="Projects Showcase List">
+              {filteredProjects.map((project) => (
+                <div key={project.id} className="grid-item">
+                  <ProjectCard project={project} />
+                </div>
+              ))}
+            </section>
+          ) : (
+            <div className="glass-panel no-results-card">
+              <p>No projects match your current search criteria.</p>
+              <button
+                className="btn btn-secondary magnetic-btn-3d"
+                onClick={() => { setSearchTerm(''); setFilterCategory('All'); }}
+                style={{ marginTop: '16px' }}
+              >
+                Clear Filters
+              </button>
+            </div>
+          )}
+        </section>
+      </ScrollSection>
 
       <style>{`
         .projects-container {
           display: flex;
           flex-direction: column;
-          gap: 30px;
+          gap: 0;
+          scroll-snap-type: y proximity;
         }
 
-        .projects-header {
-          text-align: center;
-          margin-bottom: 10px;
+        .projects-scroll-hero {
+          min-height: 80vh;
+          padding-top: 76px;
         }
 
-        /* Search and Filter Panel styles */
+        .projects-scroll-filters {
+          min-height: auto;
+        }
+
+        .projects-scroll-grid {
+          min-height: 100vh;
+        }
+
+        .projects-inner-section {
+          width: 100%;
+        }
+
         .search-filter-section {
           display: flex;
           flex-direction: column;
@@ -110,6 +136,8 @@ const Projects = () => {
           border-radius: 12px;
           background: rgba(255, 255, 255, 0.02);
           border-color: rgba(255, 255, 255, 0.05);
+          position: relative;
+          overflow: hidden;
         }
 
         .search-icon {
@@ -176,7 +204,6 @@ const Projects = () => {
           box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
         }
 
-        /* Grid list styling */
         .projects-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -192,6 +219,28 @@ const Projects = () => {
           padding: 60px 24px;
           text-align: center;
           color: var(--text-secondary);
+        }
+
+        .page-header-animated {
+          text-align: center;
+          margin-bottom: 10px;
+        }
+
+        .page-header-icon-ring {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          background: rgba(139, 92, 246, 0.1);
+          border: 1px solid rgba(139, 92, 246, 0.2);
+          margin-bottom: 16px;
+          animation: float3dSlow 3s ease-in-out infinite;
+        }
+
+        .page-header-icon {
+          color: var(--accent-purple);
         }
       `}</style>
     </div>

@@ -1,76 +1,106 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu, X, Terminal, FileText } from 'lucide-react';
 
-const Navbar = ({ onOpenResume }) => {
+const scrollToSection = (id) => {
+  const el = document.getElementById(id);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 85;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+};
+
+const sections = [
+  { id: 'hero', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'certifications', label: 'Certifications' },
+  { id: 'contact', label: 'Contact' }
+];
+
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('Home');
 
-  // Monitor scrolling to dynamically adjust navbar glass styling
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      setScrolled(window.scrollY > 20);
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i].id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.45) {
+            setActiveSection(sections[i].label);
+            break;
+          }
+        }
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
+  const handleNavClick = (id) => {
+    scrollToSection(id);
+    closeMenu();
+    const section = sections.find(s => s.id === id);
+    if (section) setActiveSection(section.label);
+  };
+
   return (
     <header className={`header-nav ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
-        <Link to="/" className="nav-logo" onClick={closeMenu}>
+        <Link to="/" className="nav-logo" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); closeMenu(); }}>
           <Terminal className="text-gradient-accent" size={24} />
           <span className="text-gradient font-heading" style={{ fontWeight: 800 }}>Jishnu vardhan</span>
         </Link>
 
-        {/* Single navigation menu */}
         <ul className={`nav-menu ${isOpen ? 'open' : ''}`} id="main-nav-list">
           <li>
-            <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu} end>
+            <button className={`nav-link ${activeSection === 'Home' ? 'active' : ''}`} onClick={() => handleNavClick('hero')}>
               Home
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+            <button className={`nav-link ${activeSection === 'About' ? 'active' : ''}`} onClick={() => handleNavClick('about')}>
               About
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink to="/skills" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+            <button className={`nav-link ${activeSection === 'Skills' ? 'active' : ''}`} onClick={() => handleNavClick('skills')}>
               Skills
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink to="/projects" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+            <button className={`nav-link ${activeSection === 'Projects' ? 'active' : ''}`} onClick={() => handleNavClick('projects')}>
               Projects
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink to="/certifications" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+            <button className={`nav-link ${activeSection === 'Certifications' ? 'active' : ''}`} onClick={() => handleNavClick('certifications')}>
               Certifications
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+            <button className={`nav-link ${activeSection === 'Contact' ? 'active' : ''}`} onClick={() => handleNavClick('contact')}>
               Contact
-            </NavLink>
+            </button>
           </li>
           <li className="nav-resume-li">
-            <a 
-              href="/Jishnu_Vardhan_Kancharla_Resume_1.pdf" 
-              target="_blank" 
+            <a
+              href="/Jishnu_Vardhan_Kancharla_Resume_1.pdf"
+              target="_blank"
               rel="noopener noreferrer"
               className="btn btn-resume btn-nav-resume"
               onClick={closeMenu}
-              aria-label="View Resume in New Tab"
+              aria-label="Open Resume in new window"
             >
               <FileText size={15} />
               <span>Get Resume</span>
@@ -78,7 +108,6 @@ const Navbar = ({ onOpenResume }) => {
           </li>
         </ul>
 
-        {/* Mobile menu toggle button */}
         <button
           className="mobile-toggle"
           onClick={toggleMenu}
@@ -90,7 +119,6 @@ const Navbar = ({ onOpenResume }) => {
       </div>
 
       <style>{`
-        /* Premium Frosted Glass Header Nav */
         .header-nav {
           position: fixed;
           top: 0;
@@ -124,7 +152,6 @@ const Navbar = ({ onOpenResume }) => {
           position: relative;
         }
 
-        /* 2. Desktop Mode (Default / fallback) */
         .nav-menu {
           display: flex !important;
           list-style: none !important;
@@ -154,12 +181,16 @@ const Navbar = ({ onOpenResume }) => {
           transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
           border: 1px solid transparent;
           display: inline-block;
+          background: none;
+          cursor: pointer;
         }
 
         .nav-link:hover {
-          color: var(--text-primary);
-          background: rgba(255, 255, 255, 0.04);
-          border-color: rgba(255, 255, 255, 0.02);
+          color: #ffffff;
+          background: rgba(139, 92, 246, 0.10);
+          border-color: rgba(139, 92, 246, 0.15);
+          box-shadow: 0 0 12px rgba(139, 92, 246, 0.08);
+          transform: translateY(-1px);
         }
 
         .nav-link.active {
@@ -173,7 +204,6 @@ const Navbar = ({ onOpenResume }) => {
           display: none !important;
         }
 
-        /* 3. Mobile Mode (<= 768px Viewports) */
         @media (max-width: 768px) {
           .mobile-toggle {
             display: block !important;

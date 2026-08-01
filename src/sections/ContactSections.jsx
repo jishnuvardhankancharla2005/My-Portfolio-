@@ -4,10 +4,9 @@ import { Github, Linkedin, Instagram } from '../components/SocialIcons';
 import emailjs from '@emailjs/browser';
 import use3DTilt from '../hooks/use3DTilt';
 import ScrollSection from '../components/ScrollSection';
-import ScrollNavDots from '../components/ScrollNavDots';
 import PageHeader from '../components/PageHeader';
 
-const Contact = () => {
+const ContactSections = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -106,37 +105,31 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-container">
-      <ScrollNavDots />
+    <>
+      <ScrollSection id="contact" index={10} className="contact-scroll-section">
+      <section className="contact-inner-section">
+        <PageHeader
+          icon={Headphones}
+          title="Get In Touch"
+          subtitle="Let's connect! I am open to technical roles, AI collaborations, Data Science research, or DevOps automation consults."
+        />
 
-      <ScrollSection id="hero" index={0} className="contact-scroll-hero">
-        <section className="contact-inner-section">
-          <PageHeader
-            icon={Headphones}
-            title="Get In Touch"
-            subtitle="Let's connect! I am open to technical roles, AI collaborations, Data Science research, or DevOps automation consults."
-          />
-        </section>
-      </ScrollSection>
+        <div className="contact-grid">
+          <section className="contact-info-panel" aria-labelledby="connect-title">
+            <div ref={detailsRef} className="glass-panel contact-details-card tilt-card" {...detailsHandlers}>
+              <h2 id="connect-title" className="contact-subtitle">Connection Channels</h2>
+              <p className="contact-desc">Feel free to reach out via email or connect across social channels. I usually respond within 24 hours.</p>
 
-      <ScrollSection id="focus" index={1} className="contact-scroll-grid">
-        <section className="contact-inner-section">
-          <div className="contact-grid">
-            <section className="contact-info-panel" aria-labelledby="connect-title">
-              <div ref={detailsRef} className="glass-panel contact-details-card tilt-card" {...detailsHandlers}>
-                <h2 id="connect-title" className="contact-subtitle">Connection Channels</h2>
-                <p className="contact-desc">Feel free to reach out via email or connect across social channels. I usually respond within 24 hours.</p>
-
-                <div className="contact-links-list">
-                  <a href="mailto:jishnuvardhankancharla2005@gmail.com" className="contact-item-link">
-                    <div className="contact-icon-box mail">
-                      <Mail size={18} />
-                    </div>
-                    <div>
-                      <span className="contact-label">Direct Mail</span>
-                      <span className="contact-val">jishnuvardhan558@gmail.com</span>
-                    </div>
-                  </a>
+              <div className="contact-links-list">
+                <a href="mailto:jishnuvardhankancharla2005@gmail.com" className="contact-item-link">
+                  <div className="contact-icon-box mail">
+                    <Mail size={18} />
+                  </div>
+                  <div>
+                    <span className="contact-label">Direct Mail</span>
+                    <span className="contact-val">jishnuvardhankancharla2005@gmail.com</span>
+                  </div>
+                </a>
 
                   <a href="https://www.linkedin.com/in/jishnu-vardhan-kancharla-90170032b" target="_blank" rel="noopener noreferrer" className="contact-item-link">
                     <div className="contact-icon-box linkedin">
@@ -187,7 +180,7 @@ const Contact = () => {
                       <a
                         href={mailtoUrl}
                         className="btn btn-primary"
-                        style={{ marginTop: '24px', textDecoration: 'none', display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}
+                        style={{ marginTop: 24, textDecoration: 'none', display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}
                       >
                         Open Mail Client Again
                       </a>
@@ -195,7 +188,7 @@ const Contact = () => {
                     <button
                       className={`btn ${usedMailto ? 'btn-secondary' : 'btn-primary'}`}
                       onClick={() => { setIsSuccess(false); setUsedMailto(false); setMailtoUrl(''); }}
-                      style={{ marginTop: usedMailto ? '12px' : '24px' }}
+                      style={{ marginTop: usedMailto ? 12 : 24 }}
                     >
                       Send Another Message
                     </button>
@@ -278,20 +271,8 @@ const Contact = () => {
       </ScrollSection>
 
       <style>{`
-        .contact-container {
-          display: flex;
-          flex-direction: column;
-          gap: 0;
-          scroll-snap-type: y proximity;
-        }
-
-        .contact-scroll-hero {
-          min-height: 80vh;
-          padding-top: 76px;
-        }
-
-        .contact-scroll-grid {
-          min-height: 100vh;
+        .contact-scroll-section {
+          min-height: auto;
         }
 
         .contact-inner-section {
@@ -300,8 +281,9 @@ const Contact = () => {
 
         .contact-grid {
           display: grid;
-          grid-template-columns: 1fr 1.3fr;
-          gap: 30px;
+          grid-template-columns: 1fr 1.2fr;
+          gap: var(--gap-lg);
+          align-items: stretch;
         }
 
         @media (max-width: 900px) {
@@ -311,36 +293,36 @@ const Contact = () => {
         }
 
         .contact-details-card {
-          padding: 30px 24px;
+          padding: var(--card-padding);
           text-align: left;
         }
 
         .contact-subtitle {
           font-size: 1.3rem;
-          margin-bottom: 8px;
+          margin-bottom: var(--gap-xs);
           font-weight: 700;
         }
 
         .contact-desc {
           font-size: 0.9rem;
           color: var(--text-secondary);
-          margin-bottom: 30px;
+          margin-bottom: var(--gap-lg);
           line-height: 1.5;
         }
 
         .contact-links-list {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 14px;
         }
 
         .contact-item-link {
           display: flex;
           align-items: center;
-          gap: 16px;
+          gap: 14px;
           color: var(--text-primary);
           text-decoration: none;
-          padding: 12px;
+          padding: var(--gap-xs);
           border-radius: 12px;
           background: rgba(255, 255, 255, 0.01);
           border: 1px solid rgba(255, 255, 255, 0.03);
@@ -354,9 +336,9 @@ const Contact = () => {
         }
 
         .contact-icon-box {
-          width: 44px;
-          height: 44px;
-          border-radius: 10px;
+          width: 40px;
+          height: 40px;
+          border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -406,17 +388,17 @@ const Contact = () => {
         }
 
         .form-card {
-          padding: 36px 30px;
+          padding: var(--card-padding);
           text-align: left;
         }
 
         .form-title-row {
           display: flex;
           align-items: center;
-          gap: 10px;
-          margin-bottom: 24px;
+          gap: var(--gap-xs);
+          margin-bottom: var(--gap-md);
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-          padding-bottom: 16px;
+          padding-bottom: var(--gap-sm);
         }
 
         .form-title-icon {
@@ -437,7 +419,7 @@ const Contact = () => {
           width: 100%;
           padding: 14px;
           border-radius: 10px;
-          margin-top: 10px;
+          margin-top: var(--gap-xs);
         }
 
         .spinner {
@@ -455,7 +437,7 @@ const Contact = () => {
         }
 
         .success-state {
-          padding: 40px 20px;
+          padding: var(--gap-xl) var(--gap-md);
           text-align: center;
           display: flex;
           flex-direction: column;
@@ -464,13 +446,13 @@ const Contact = () => {
 
         .success-icon {
           color: #34d399;
-          margin-bottom: 24px;
+          margin-bottom: var(--gap-md);
         }
 
         .success-state h2 {
           font-size: 1.6rem;
           font-weight: 800;
-          margin-bottom: 8px;
+          margin-bottom: var(--gap-xs);
         }
 
         .success-state p {
@@ -480,30 +462,12 @@ const Contact = () => {
           max-width: 400px;
         }
 
-        .page-header-animated {
-          text-align: center;
-          margin-bottom: 10px;
-        }
-
-        .page-header-icon-ring {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 48px;
-          height: 48px;
-          border-radius: 14px;
-          background: rgba(139, 92, 246, 0.1);
-          border: 1px solid rgba(139, 92, 246, 0.2);
-          margin-bottom: 16px;
-          animation: float3dSlow 3s ease-in-out infinite;
-        }
-
         .page-header-icon {
           color: var(--accent-purple);
         }
       `}</style>
-    </div>
+    </>
   );
 };
 
-export default Contact;
+export default ContactSections;

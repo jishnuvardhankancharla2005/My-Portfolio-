@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Award, ExternalLink, X, Layers, CheckCircle2 } from 'lucide-react';
-import { useScrollReveal } from '../hooks/useScrollReveal';
+import { Award, ExternalLink, X, Layers, CheckCircle2, ScrollText } from 'lucide-react';
 import use3DTilt from '../hooks/use3DTilt';
+import ScrollSection from '../components/ScrollSection';
+import PageHeader from '../components/PageHeader';
 
 const CertCard = ({ cert, index, onSelectBundle, onSelectImage }) => {
   const { ref, handlers } = use3DTilt({ maxTilt: 10, scale: 1.03 });
@@ -49,7 +50,7 @@ const CertCard = ({ cert, index, onSelectBundle, onSelectImage }) => {
                 </div>
               )}
               <span className="pdf-overlay-hint">
-                {cert.isProfessional ? 'Explore Series →' : 'View Certificate →'}
+                {cert.isProfessional ? 'Explore Series \u2192' : 'View Certificate \u2192'}
               </span>
             </div>
           </div>
@@ -91,8 +92,7 @@ const CertCard = ({ cert, index, onSelectBundle, onSelectImage }) => {
   );
 };
 
-const Certifications = () => {
-  useScrollReveal();
+const CertificationsSections = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedBundle, setSelectedBundle] = useState(null);
   const [activeSubCertIndex, setActiveSubCertIndex] = useState(0);
@@ -105,30 +105,12 @@ const Certifications = () => {
       isProfessional: true,
       isModal: true,
       subCertificates: [
-        {
-          title: "Career Essentials in Generative AI (Full Program)",
-          image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn.pdf"
-        },
-        {
-          title: "What Is Generative AI?",
-          image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_What Is Generative AI.pdf"
-        },
-        {
-          title: "Everyday AI Concepts",
-          image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Everyday AI Concepts.pdf"
-        },
-        {
-          title: "Ethics in the Age of Generative AI",
-          image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Ethics in the Age of Generative AI.pdf"
-        },
-        {
-          title: "Learning Microsoft 365 Copilot for Work",
-          image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Learning Microsoft 365 Copilot for Work.pdf"
-        },
-        {
-          title: "Your Top AI Questions Answered",
-          image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Your Top AI Questions Answered AI Literacy for Everyone.pdf"
-        }
+        { title: "Career Essentials in Generative AI (Full Program)", image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn.pdf" },
+        { title: "What Is Generative AI?", image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_What Is Generative AI.pdf" },
+        { title: "Everyday AI Concepts", image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Everyday AI Concepts.pdf" },
+        { title: "Ethics in the Age of Generative AI", image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Ethics in the Age of Generative AI.pdf" },
+        { title: "Learning Microsoft 365 Copilot for Work", image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Learning Microsoft 365 Copilot for Work.pdf" },
+        { title: "Your Top AI Questions Answered", image: "/images/Career Essentials in Generative AI by Microsoft and LinkedIn/CertificateOfCompletion_Your Top AI Questions Answered AI Literacy for Everyone.pdf" }
       ]
     },
     {
@@ -138,22 +120,10 @@ const Certifications = () => {
       isProfessional: true,
       isModal: true,
       subCertificates: [
-        {
-          title: "DevOps Professional Certificate (Full Program)",
-          image: "/images/DevOps professional course certificates/CertificateOfCompletion_DevOps Professional Certificate by PagerDuty and LinkedIn.pdf"
-        },
-        {
-          title: "DevOps Foundations",
-          image: "/images/DevOps professional course certificates/CertificateOfCompletion_DevOps Foundations.pdf"
-        },
-        {
-          title: "Continuous Delivery & CI",
-          image: "/images/DevOps professional course certificates/CertificateOfCompletion_DevOps Foundations Continuous DeliveryContinuous Integration.pdf"
-        },
-        {
-          title: "Infrastructure as Code",
-          image: "/images/DevOps professional course certificates/CertificateOfCompletion_DevOps Foundations Infrastructure as Code.pdf"
-        }
+        { title: "DevOps Professional Certificate (Full Program)", image: "/images/DevOps professional course certificates/CertificateOfCompletion_DevOps Professional Certificate by PagerDuty and LinkedIn.pdf" },
+        { title: "DevOps Foundations", image: "/images/DevOps professional course certificates/CertificateOfCompletion_DevOps Foundations.pdf" },
+        { title: "Continuous Delivery & CI", image: "/images/DevOps professional course certificates/CertificateOfCompletion_DevOps Foundations Continuous DeliveryContinuous Integration.pdf" },
+        { title: "Infrastructure as Code", image: "/images/DevOps professional course certificates/CertificateOfCompletion_DevOps Foundations Infrastructure as Code.pdf" }
       ]
     },
     {
@@ -197,25 +167,29 @@ const Certifications = () => {
   ];
 
   return (
-    <div className="certifications-page-container animate-fade-in">
-      <header className="certifications-header-main">
-        <h1 className="text-gradient text-3d">Licenses & Certifications</h1>
-        <p className="subtitle">Verified credentials, professional programs, and technical badges showcasing my expertise.</p>
-      </header>
+    <>
+      <ScrollSection id="certifications" index={9} className="cert-scroll-section">
+      <section className="cert-inner-section">
+        <PageHeader
+          icon={ScrollText}
+          title="Licenses & Certifications"
+          subtitle="Verified credentials, professional programs, and technical badges showcasing my expertise."
+        />
 
-      <div className="certifications-grid scroll-3d-section stagger-3d">
-        {certifications.map((cert, index) => (
-          <CertCard
-            key={index}
-            cert={cert}
-            index={index}
-            onSelectBundle={(c) => { setSelectedBundle(c); setActiveSubCertIndex(0); }}
-            onSelectImage={setSelectedImage}
-          />
-        ))}
-      </div>
+        <div className="certifications-grid scroll-3d-section stagger-3d">
+          {certifications.map((cert, index) => (
+            <CertCard
+              key={index}
+              cert={cert}
+              index={index}
+              onSelectBundle={(c) => { setSelectedBundle(c); setActiveSubCertIndex(0); }}
+              onSelectImage={setSelectedImage}
+            />
+          ))}
+        </div>
+      </section>
+    </ScrollSection>
 
-      {/* Standard Image / PDF Modal */}
       {selectedImage && (
         <div className="modal-overlay" onClick={() => setSelectedImage(null)}>
           <div className="modal-content standard-modal-content" onClick={e => e.stopPropagation()}>
@@ -237,7 +211,6 @@ const Certifications = () => {
         </div>
       )}
 
-      {/* Professional Bundle Interactive Modal */}
       {selectedBundle && (
         <div className="modal-overlay" onClick={() => setSelectedBundle(null)}>
           <div className="modal-content bundle-modal-content" onClick={e => e.stopPropagation()}>
@@ -246,7 +219,6 @@ const Certifications = () => {
             </button>
             
             <div className="bundle-modal-layout">
-              {/* Sidebar list of sub-certificates */}
               <div className="bundle-modal-sidebar">
                 <div className="bundle-sidebar-header">
                   <div className="bundle-header-badge">
@@ -271,7 +243,6 @@ const Certifications = () => {
                 </div>
               </div>
               
-              {/* Main certificate viewer */}
               <div className="bundle-modal-viewer">
                 <iframe 
                   key={activeSubCertIndex}
@@ -286,28 +257,25 @@ const Certifications = () => {
       )}
 
       <style>{`
-        .certifications-page-container {
-          display: flex;
-          flex-direction: column;
-          gap: 40px;
-          padding: 76px 0 60px;
+        .cert-scroll-section {
+          min-height: auto;
         }
 
-        .certifications-header-main {
-          text-align: center;
-          margin-bottom: 20px;
+        .cert-inner-section {
+          width: 100%;
         }
 
         .certifications-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
-          gap: 28px;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: var(--gap-lg);
         }
 
         .cert-card {
           padding: 0;
           display: flex;
           flex-direction: column;
+          height: 100%;
           overflow: hidden;
           transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
           border: 1px solid rgba(255, 255, 255, 0.08);
@@ -461,7 +429,7 @@ const Certifications = () => {
         }
 
         .cert-content {
-          padding: 24px;
+          padding: var(--gap-md);
           display: flex;
           flex-direction: column;
           flex-grow: 1;
@@ -470,7 +438,7 @@ const Certifications = () => {
         .cert-title {
           font-size: 1.15rem;
           font-weight: 700;
-          margin-bottom: 6px;
+          margin-bottom: var(--gap-xs);
           line-height: 1.35;
           color: var(--text-primary);
         }
@@ -478,17 +446,17 @@ const Certifications = () => {
         .cert-issuer {
           font-size: 0.92rem;
           color: var(--text-secondary);
-          margin-bottom: 14px;
+          margin-bottom: var(--gap-2xs);
         }
 
         .bundle-count-pill {
           display: inline-flex;
           align-items: center;
-          gap: 6px;
+          gap: var(--gap-xs);
           font-size: 0.8rem;
           color: var(--accent-pink);
           font-weight: 600;
-          margin-bottom: 18px;
+          margin-bottom: var(--gap-md);
           padding: 4px 10px;
           background: rgba(217, 70, 239, 0.1);
           border: 1px solid rgba(217, 70, 239, 0.2);
@@ -507,7 +475,6 @@ const Certifications = () => {
           border-radius: 8px;
         }
 
-        /* Modal Layout */
         .modal-overlay {
           position: fixed;
           top: 0;
@@ -570,7 +537,7 @@ const Certifications = () => {
         }
 
         .bundle-sidebar-header {
-          padding: 28px 24px;
+          padding: var(--gap-lg) var(--gap-md);
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
           background: rgba(139, 92, 246, 0.05);
         }
@@ -578,18 +545,17 @@ const Certifications = () => {
         .bundle-header-badge {
           display: inline-flex;
           align-items: center;
-          gap: 6px;
+          gap: var(--gap-xs);
           font-size: 0.72rem;
           font-weight: 700;
           text-transform: uppercase;
           color: var(--accent-purple);
-          margin-bottom: 8px;
+          margin-bottom: var(--gap-xs);
         }
 
         .bundle-sidebar-header h4 {
           font-size: 1.2rem;
           font-weight: 800;
-          margin-bottom: 4px;
           color: var(--text-primary);
           line-height: 1.3;
         }
@@ -602,7 +568,7 @@ const Certifications = () => {
         .bundle-sidebar-list {
           flex-grow: 1;
           overflow-y: auto;
-          padding: 16px;
+          padding: var(--gap-sm);
           display: flex;
           flex-direction: column;
           gap: 10px;
@@ -611,8 +577,8 @@ const Certifications = () => {
         .bundle-sidebar-item {
           display: flex;
           align-items: center;
-          gap: 12px;
-          padding: 14px 16px;
+          gap: var(--gap-2xs);
+          padding: 14px var(--gap-sm);
           border-radius: 10px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
@@ -716,6 +682,10 @@ const Certifications = () => {
           transform: rotate(90deg) scale(1.1);
         }
 
+        .page-header-icon {
+          color: var(--accent-purple);
+        }
+
         @media (max-width: 900px) {
           .bundle-modal-content {
             height: 92vh;
@@ -759,8 +729,8 @@ const Certifications = () => {
           }
         }
       `}</style>
-    </div>
+    </>
   );
 };
 
-export default Certifications;
+export default CertificationsSections;
